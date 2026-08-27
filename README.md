@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Alfin Syahrin — Portfolio
 
-## Getting Started
+Website portfolio pribadi, dibangun sesuai `design.md`: Next.js 14 (App Router), TypeScript, Tailwind CSS, dan Framer Motion.
 
-First, run the development server:
+## Menjalankan secara lokal
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Struktur proyek
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  layout.tsx        # Root layout + font Inter
+  page.tsx           # Menyusun seluruh section
+  globals.css
+components/
+  Navbar.tsx
+  Hero.tsx
+  About.tsx
+  Skills.tsx
+  FeaturedProjects.tsx
+  CurrentProjects.tsx
+  Gallery.tsx
+  Experience.tsx
+  Certificates.tsx
+  Contact.tsx
+  Footer.tsx
+  ui/
+    Button.tsx        # dengan ripple effect
+    Badge.tsx
+    Card.tsx           # hover naik + shadow
+    Progress.tsx        # progress bar animasi
+    SectionHeading.tsx
+lib/
+  constants.ts         # semua data (skills, projects, experience, dll)
+public/
+  profile.svg           # placeholder foto profil
+  projects/*.svg          # placeholder gambar project
+```
 
-## Learn More
+## Yang perlu kamu ganti
 
-To learn more about Next.js, take a look at the following resources:
+1. **Foto profil** — ganti `public/profile.svg` dengan foto asli kamu (`profile.jpg`, lalu update path di `components/Hero.tsx`).
+2. **Screenshot project** — ganti file di `public/projects/` dengan screenshot asli (rasio 16:9, kualitas tinggi).
+3. **Data pribadi** — semua teks, link Github/LinkedIn/Instagram, email, skill, project, sertifikat, dan pengalaman ada di satu tempat: `lib/constants.ts`. Tidak perlu menyentuh komponen untuk mengubah isi konten.
+4. **Resume/CV** — tambahkan file `resume.pdf` ke folder `public/` supaya tombol "Download CV" dan "Resume" berfungsi.
+5. **Form kontak** — tombol "Send Message" saat ini membuka email client (`mailto:`). Jika ingin form kontak sungguhan, tinggal ganti `components/Contact.tsx` dengan form + API route atau layanan seperti Resend/Formspree.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Catatan implementasi
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Warna, font, radius, shadow, spacing mengikuti token di `design.md` secara persis, didefinisikan di `tailwind.config.ts`.
+- Navbar berubah jadi putih transparan + blur + shadow tipis saat discroll, dan menjadi hamburger menu di mobile.
+- Setiap section muncul dengan fade animation saat discroll (Framer Motion `whileInView`), dan Hero fade-in bertahap saat halaman dibuka.
+- Featured Projects menggunakan layout bergantian kiri-kanan (image ↔ text) sesuai spesifikasi.
+- Currently Building & Experience menggunakan timeline vertical dengan garis penghubung.
+- Card skill & certificate naik 6px saat hover; gambar project di-zoom 1.03x saat hover; button punya ripple effect saat diklik.
+- Semua gambar sudah pakai `next/image` untuk optimasi otomatis.
 
-## Deploy on Vercel
+## Build untuk production
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run start
+```
