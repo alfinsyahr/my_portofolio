@@ -51,7 +51,7 @@ export default function About() {
             <div className='h-8 w-px bg-border' />
             <div>
               <p className='text-2xl font-heading font-extrabold text-ink'>
-                10+
+                5+
               </p>
               <p className='text-xs text-muted mt-1'>Project selesai</p>
             </div>
