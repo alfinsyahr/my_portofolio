@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { Download, Mail } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
+import { useLanguage } from '@/context/LanguageContext';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -15,6 +17,8 @@ const fadeUp = {
 };
 
 export default function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section id='top' className='relative pt-40 pb-28 overflow-hidden'>
       <div className='section-container grid md:grid-cols-2 gap-16 items-center'>
@@ -26,7 +30,7 @@ export default function Hero() {
             variants={fadeUp}
             className='text-muted text-lg'
           >
-            Hello, I&apos;m
+            {t.hero.greeting}
           </motion.p>
 
           <motion.h1
@@ -46,7 +50,7 @@ export default function Hero() {
             variants={fadeUp}
             className='mt-3 text-xl md:text-2xl font-heading font-extrabold text-accent'
           >
-            Full Stack Developer &amp; AI Enthusiast
+            {t.hero.role}
           </motion.p>
 
           <motion.p
@@ -56,8 +60,7 @@ export default function Hero() {
             variants={fadeUp}
             className='mt-6 text-muted text-base md:text-lg max-w-md leading-relaxed'
           >
-            Saya membangun Website dan Mobile App modern, AI application, dan
-            IoT project.
+            {t.hero.bio}
           </motion.p>
 
           <motion.div
@@ -67,9 +70,17 @@ export default function Hero() {
             variants={fadeUp}
             className='mt-8 flex flex-wrap items-center gap-4'
           >
-            <Button href='#contact'>Contact Me</Button>
-            <Button href='/resume.pdf' variant='secondary'>
-              Download CV
+            <Button href='#contact'>
+              <Mail size={16} />
+              {t.hero.contactBtn}
+            </Button>
+            <Button
+              href={t.cv.fileUrl}
+              download={t.cv.downloadFileName}
+              variant='secondary'
+            >
+              <Download size={16} className='text-accent' />
+              {t.hero.downloadCvBtn}
             </Button>
           </motion.div>
 
@@ -82,10 +93,10 @@ export default function Hero() {
           >
             <div className='flex flex-wrap items-center gap-3'>
               <Badge color='success' dot>
-                Available for Work
+                {t.hero.availableWork}
               </Badge>
               <Badge color='success' dot>
-                Available for Freelance
+                {t.hero.availableFreelance}
               </Badge>
             </div>
           </motion.div>
@@ -102,12 +113,11 @@ export default function Hero() {
           </div>
 
           <div className='relative animate-float h-64 w-64 md:h-80 md:w-80 mx-auto'>
-            {/* 1. Latar Belakang Lingkaran (Ukuran kembali pas seperti semula) */}
+            {/* 1. Latar Belakang Lingkaran */}
             <div className='absolute inset-0 rounded-full bg-white border border-border shadow-xl'></div>
 
             {/* 2. Layer Badan: Bagian bawah yang terpotong rapi di dalam lingkaran */}
             <div className='absolute inset-0 rounded-full overflow-hidden'>
-              {/* Gambar diset lebih tinggi dari lingkaran (h-[120%]) dan diletakkan di bawah */}
               <div className='absolute bottom-0 w-full h-[120%]'>
                 <Image
                   src='/Alfin_Profile.png'
@@ -121,7 +131,6 @@ export default function Hero() {
             </div>
 
             {/* 3. Layer Kepala: Bagian atas yang "Pop-Out" keluar dari lingkaran */}
-            {/* Posisi dan ukurannya persis dengan layer badan, tapi clipPath menyembunyikan bagian bawahnya */}
             <div
               className='absolute bottom-0 w-full h-[120%] z-10 pointer-events-none'
               style={{ clipPath: 'inset(0 0 50% 0)' }}

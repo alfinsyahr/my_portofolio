@@ -5,6 +5,7 @@ import { Mail, Linkedin, Github, Instagram } from 'lucide-react';
 import { SOCIALS } from '@/lib/constants';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+import { useLanguage } from '@/context/LanguageContext';
 
 const ICONS: Record<string, typeof Mail> = {
   Mail,
@@ -14,6 +15,8 @@ const ICONS: Record<string, typeof Mail> = {
 };
 
 export default function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section id='contact' className='py-28'>
       <div className='section-container'>
@@ -25,12 +28,12 @@ export default function Contact() {
         >
           <Card className='p-10 md:p-16 text-center' hoverLift={false}>
             <h2 className='text-3xl md:text-4xl font-heading font-extrabold text-ink'>
-              Let&apos;s Build Something Together.
+              {t.contact.title}
             </h2>
 
             <div className='mt-8 flex flex-wrap items-center justify-center gap-4'>
               {SOCIALS.map((social) => {
-                const Icon = ICONS[social.icon];
+                const Icon = ICONS[social.icon] || Mail;
                 return (
                   <a
                     key={social.label}
@@ -49,7 +52,8 @@ export default function Contact() {
 
             <div className='mt-10'>
               <Button href='mailto:syahrinalfin105@gmail.com'>
-                Send Message
+                <Mail size={16} />
+                {t.contact.sendMessage}
               </Button>
             </div>
           </Card>

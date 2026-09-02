@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,8 +21,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={inter.variable}>
-      <body className='font-body bg-bg text-ink antialiased'>{children}</body>
+    <html lang='id' className={inter.variable}>
+      <body className='font-body bg-bg text-ink antialiased'>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

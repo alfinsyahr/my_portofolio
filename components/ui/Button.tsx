@@ -1,17 +1,20 @@
-"use client";
+'use client';
 
-import { ReactNode, MouseEvent, useState } from "react";
-import clsx from "clsx";
+import { ReactNode, MouseEvent, useState } from 'react';
+import clsx from 'clsx';
 
 type Ripple = { x: number; y: number; size: number; id: number };
 
-type ButtonProps = {
+export type ButtonProps = {
   children: ReactNode;
   href?: string;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: 'primary' | 'secondary' | 'ghost';
   onClick?: () => void;
   className?: string;
-  type?: "button" | "submit";
+  type?: 'button' | 'submit';
+  download?: boolean | string;
+  target?: string;
+  rel?: string;
 };
 
 let rippleId = 0;
@@ -19,10 +22,13 @@ let rippleId = 0;
 export default function Button({
   children,
   href,
-  variant = "primary",
+  variant = 'primary',
   onClick,
   className,
-  type = "button",
+  type = 'button',
+  download,
+  target,
+  rel,
 }: ButtonProps) {
   const [ripples, setRipples] = useState<Ripple[]>([]);
 
@@ -39,14 +45,14 @@ export default function Button({
   };
 
   const base =
-    "relative overflow-hidden inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition duration-300 ease-smooth select-none";
+    'relative overflow-hidden inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition duration-300 ease-smooth select-none cursor-pointer';
 
   const variants: Record<string, string> = {
     primary:
-      "bg-accent text-white hover:bg-accent-hover shadow-sm hover:shadow-lg hover:-translate-y-0.5",
+      'bg-accent text-white hover:bg-accent-hover shadow-sm hover:shadow-lg hover:-translate-y-0.5',
     secondary:
-      "bg-white text-ink border border-border hover:border-accent hover:text-accent hover:-translate-y-0.5",
-    ghost: "text-ink hover:text-accent",
+      'bg-white text-ink border border-border hover:border-accent hover:text-accent hover:-translate-y-0.5',
+    ghost: 'text-ink hover:text-accent',
   };
 
   const content = (
@@ -55,7 +61,7 @@ export default function Button({
       {ripples.map((r) => (
         <span
           key={r.id}
-          className="pointer-events-none absolute rounded-full bg-white/40 animate-[ripple_0.6s_ease-out]"
+          className='pointer-events-none absolute rounded-full bg-white/40 animate-[ripple_0.6s_ease-out]'
           style={{
             left: r.x,
             top: r.y,
@@ -85,6 +91,9 @@ export default function Button({
     return (
       <a
         href={href}
+        download={download}
+        target={target}
+        rel={rel}
         onClick={(e) => {
           spawnRipple(e);
           onClick?.();

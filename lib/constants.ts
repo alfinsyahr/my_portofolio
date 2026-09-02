@@ -197,7 +197,7 @@ export const CURRENT_PROJECTS: CurrentProject[] = [
   {
     name: 'TinyDesk Robot',
     description:
-      'Mengembangkan robot mini interaktif berbasis ESP32 dengan ekspresi mata OLED dan kontrol pergerakan motor.',
+      'Mengembangkan robot mini interaktif berbasis ESP32 C3 dengan ekspresi mata OLED dan kontrol pergerakan motor.',
     progress: 10,
   },
 ];

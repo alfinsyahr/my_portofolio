@@ -3,30 +3,35 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Github, ExternalLink, Clock } from 'lucide-react';
-import { FEATURED_PROJECTS } from '@/lib/constants';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import SectionHeading from '@/components/ui/SectionHeading';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function FeaturedProjects() {
+  const { t } = useLanguage();
+
   return (
     <section id='projects' className='py-28'>
       <div className='section-container'>
         <SectionHeading
-          eyebrow='Case studies'
-          title='Featured Projects'
-          subtitle='Beberapa project yang telah saya selesaikan.'
+          eyebrow={t.projects.eyebrow}
+          title={t.projects.title}
+          subtitle={t.projects.subtitle}
         />
 
         <div className='mt-20 flex flex-col gap-28'>
-          {FEATURED_PROJECTS.map((project, i) => {
+          {t.projects.list.map((project, i) => {
             const reversed = i % 2 === 1;
+            const isCompleted = project.status === 'Completed';
+            const statusLabel = isCompleted
+              ? t.projects.statusCompleted
+              : t.projects.statusInProgress;
+
             return (
               <div
                 key={project.slug}
-                className={`grid md:grid-cols-2 gap-10 md:gap-16 items-center ${
-                  reversed ? '' : ''
-                }`}
+                className='grid md:grid-cols-2 gap-10 md:gap-16 items-center'
               >
                 <motion.div
                   initial={{ opacity: 0, x: reversed ? 30 : -30 }}
@@ -70,7 +75,7 @@ export default function FeaturedProjects() {
                         key={h}
                         className='flex items-center gap-2 text-sm text-ink'
                       >
-                        <span className='text-success'>✔</span>
+                        <span className='text-success font-bold'>✔</span>
                         {h}
                       </li>
                     ))}
@@ -91,25 +96,29 @@ export default function FeaturedProjects() {
                     <span className='flex items-center gap-1.5'>
                       <Clock size={14} /> {project.duration}
                     </span>
-                    <Badge
-                      color={
-                        project.status === 'Completed' ? 'success' : 'accent'
-                      }
-                      dot
-                    >
-                      {project.status}
+                    <Badge color={isCompleted ? 'success' : 'accent'} dot>
+                      {statusLabel}
                     </Badge>
                   </div>
 
                   <div className='mt-7 flex flex-wrap gap-3'>
                     {project.github && (
-                      <Button href={project.github} variant='secondary'>
-                        <Github size={16} /> Github
+                      <Button
+                        href={project.github}
+                        variant='secondary'
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        <Github size={16} /> {t.projects.viewGithub}
                       </Button>
                     )}
                     {project.demo && (
-                      <Button href={project.demo}>
-                        <ExternalLink size={16} /> Live Demo
+                      <Button
+                        href={project.demo}
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        <ExternalLink size={16} /> {t.projects.viewLive}
                       </Button>
                     )}
                   </div>
