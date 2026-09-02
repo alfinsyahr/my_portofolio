@@ -24,7 +24,7 @@ export default function CurrentProjects() {
           <div className='flex flex-col gap-12'>
             {t.currentProjects.list.map((project, i) => (
               <motion.div
-                key={project.name}
+                key={i}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}

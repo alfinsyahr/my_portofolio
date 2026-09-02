@@ -348,7 +348,7 @@ export const TRANSLATIONS: Record<Language, TranslationContent> = {
           date: '2025',
         },
         {
-          name: 'Juara Web Design Competition',
+          name: 'Web Design Competition',
           institution: 'Techsoft - HIMA RPL Polindra',
           date: '2026',
         },
@@ -607,7 +607,7 @@ export const TRANSLATIONS: Record<Language, TranslationContent> = {
           date: '2025',
         },
         {
-          name: 'Web Design Competition Winner',
+          name: 'Web Design Competition',
           institution: 'Techsoft - HIMA RPL Polindra',
           date: '2026',
         },

@@ -21,7 +21,7 @@ export default function Experience() {
           <div className='flex flex-col gap-12'>
             {t.experience.list.map((exp, i) => (
               <motion.div
-                key={exp.year + exp.title}
+                key={i}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
